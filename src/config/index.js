@@ -25,7 +25,7 @@ const GUDIE_STEPS = [
   }];
 
 const STUDENT_NAV = [
-  { name: '报道指南', to: 'guide', field: 'guide', icon: 'el-icon-thumb' },
+  { name: '报到指南', to: 'guide', field: 'guide', icon: 'el-icon-thumb' },
   { name: '修改密码', to: 'update_pwd', field: 'update_pwd', icon: 'el-icon-key' },
   { name: '个人信息', to: 'person_info', field: 'person_info', icon: 'el-icon-user' },
   { name: '学费缴纳', to: 'fee', field: 'fee', icon: 'el-icon-files' },

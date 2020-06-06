@@ -75,7 +75,7 @@ export default {
   position: absolute;
   top: 50%;
   left: 50%;
-  padding: 20px;
+  padding: 20px 25px;
   background: linear-gradient(200deg, rgba(250, 250, 250, 0.2) 0%, rgb(200, 200, 200) 100%);
   border-radius: 6px;
   box-shadow: 0 0 15px rgba(250, 250, 250, 0.5);

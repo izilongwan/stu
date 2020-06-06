@@ -2,7 +2,7 @@
   <!-- 登录 -->
   <el-form
     class="form"
-    label-width="50px"
+    label-width="65px"
     ref="form"
     :status-icon="true"
     :model="form"
@@ -27,6 +27,23 @@
       ></el-input>
     </el-form-item>
 
+    <!-- 验证码 -->
+    <el-form-item label="验证码" prop="captcha">
+      <el-input
+        maxlength="4"
+        v-model="form.captcha"
+        placeholder="请输入验证码"
+      ></el-input>
+
+      <img
+        class="captcha-img"
+        :src="`${ imgSrc }?${ rand }`"
+        alt="验证码"
+        title="验证码"
+        @click="onRefreshCaptcha"
+      />
+    </el-form-item>
+
     <el-form-item>
       <el-button
         type="primary"
@@ -43,16 +60,21 @@
 
 <script>
 import { studentLogin } from 'api/student';
+import { API } from 'api/config';
 import { TOKEN_NAME } from 'config'
+import tools from 'utils/tools'
 
 export default {
   name: 'LoginFormStudent',
 
   data () {
     return {
+      imgSrc: API.RANDOM_IMG,
+      rand: Date.now(),
       form: {
         s_id: '201600001',
-        password: '201600001'
+        password: '201600001',
+        captcha: ''
       },
       rules: {
         s_id: [
@@ -62,16 +84,33 @@ export default {
         password: [
           { required: true, message: '密码不能为空', trigger: 'blur' },
           { min: 6, max: 20, message: '密码长度为6-20位', trigger: 'blur' }
-        ]
+        ],
+        captcha: [
+          { required: true, message: '验证码不能为空', trigger: 'blur' },
+          { min: 4, max: 4, message: '验证码长度为4位', trigger: 'blur' }
+        ],
       }
     }
   },
 
   methods: {
-    submitForm (form) {
-      this.$refs.form.validate(valid => {
-        valid && this._studentLogin(this.form);
+    submitForm () {
+      const { form, $refs } = this;
+
+      $refs.form.validate(valid => {
+        if (valid) {
+          const res = { ...form };
+
+          res.password = tools.encrypto(res.password);
+          this._studentLogin(res);
+        }
+
+        this.onRefreshCaptcha();
       })
+    },
+
+    onRefreshCaptcha () {
+      this.rand = Date.now();
     },
 
     handleForm (value) {
@@ -120,6 +159,14 @@ export default {
     color: #409EFF;
     border-color: #409EFF;
     border-radius: 20px;
+  }
+
+  .captcha-img {
+    position: absolute;
+    right: 1px;
+    top: 2px;
+    width: 105px;
+    border-radius: 0 4px 4px 0;
   }
 }
 </style>

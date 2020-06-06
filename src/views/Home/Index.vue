@@ -204,6 +204,7 @@ export default {
   .view {
     position: relative;
     flex: 1;
+    min-width: 500px;
     background-color: #eee;
 
     &.print {

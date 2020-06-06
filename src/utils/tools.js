@@ -1,4 +1,5 @@
 import XLSX from 'xlsx';
+import md5 from 'js-md5'
 
 export default {
   calculateColor (num) {
@@ -284,5 +285,9 @@ export default {
 
     window.onbeforeprint = beforePrint;
     window.onafterprint = afterPrint;
+  },
+
+  encrypto (str) {
+    return md5.create().update(str.toString()).hex();
   }
 };

@@ -16,9 +16,9 @@ const API = {
   MANAGER_IMPORT_DATA: 'manager/import_data',
   DORMITORY_GET: 'dormitory/get',
   DORMITORY_EDIT: 'dormitory/edit',
+  MAIL_SEND: 'mail/send',
   UPLOAD: `${ process.env.VUE_APP_BASE_API }/upload`,
-  MAIL_SEND: 'mail/send'
+  RANDOM_IMG: `${ process.env.VUE_APP_BASE_API }/captcha/random_img`
 }
-
 
 module.exports = { API };
